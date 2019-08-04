@@ -16,6 +16,10 @@ buildscript {
                 [
                         name   : "collinearpoints",
                         sources: ["BruteCollinearPoints.java", "FastCollinearPoints.java", "Point.java"]
+                ],
+                [
+                        name: "sliderpuzzle",
+                        sources: ["Board.java",  "Solver.java"]
                 ]
         ]
     }

@@ -110,7 +110,7 @@ for (assignment in assignments) {
 
         workingDir "$buildDir/coursera/${assignment.name}"
         commandLine "$projectDir/.lift/bin/pmd"
-        args = ["-coursera"] + assignment.sources
+        args = ["-coursera", "$buildDir/coursera/${assignment.name}"]
     }
 
     tasks.create(
