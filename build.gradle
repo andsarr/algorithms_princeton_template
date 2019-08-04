@@ -1,0 +1,51 @@
+buildscript {
+    ext {
+        checkStyleVersion = "8.16"
+        spotbugsVersion = "3.1.12"
+        pmdVersion = "6.3.0"
+
+        assignments = [
+                [
+                        name   : "percolation",
+                        sources: ["Percolation.java", "PercolationStats.java"]
+                ],
+                [
+                        name   : "queues",
+                        sources: ["RandomizedQueue.java", "Deque.java", "Permutation.java"]
+                ],
+                [
+                        name   : "collinearpoints",
+                        sources: ["BruteCollinearPoints.java", "FastCollinearPoints.java", "Point.java"]
+                ]
+        ]
+    }
+}
+
+plugins {
+    id 'java-library'
+    id "de.undercouch.download" version "4.0.0"
+}
+
+apply from: "$projectDir/gradle/coursera.gradle"
+
+repositories {
+    jcenter()
+}
+
+defaultTasks 'clean', 'check'
+
+dependencies {
+    // Algorithms, 4th edition textbook code and libraries
+    compile 'edu.princeton.cs:algs4:1.0.4'
+
+    // Use JUnit test framework
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    testRuntimeOnly    'org.junit.jupiter:junit-jupiter-engine:5.5.0'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}

@@ -1,0 +1,134 @@
+task downlodCheckStyle(type: Download) {
+    description "This task will download the $checkStyleVersion version of CheckStyle."
+
+    src "https://github.com/checkstyle/checkstyle/releases/download/checkstyle-$checkStyleVersion/checkstyle-$checkStyleVersion-all.jar"
+    dest "$projectDir/.lift/lift/checkstyle/checkstyle-all.jar"
+    overwrite false
+}
+
+task downlodSpotbugs(type: Download) {
+    description "This task will download the $spotbugsVersion version of Spotbugs."
+
+    src "http://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/$spotbugsVersion/spotbugs-${spotbugsVersion}.zip"
+    dest "$projectDir/.lift/lift/spotbugs-${spotbugsVersion}.zip"
+    overwrite false
+}
+
+task downlodPMD(type: Download) {
+    description "This task will download the $pmdVersion version of PMD."
+
+    src "https://github.com/pmd/pmd/releases/download/pmd_releases%2F${pmdVersion}/pmd-bin-${pmdVersion}.zip"
+    dest "$projectDir/.lift/lift/pmd-${pmdVersion}.zip"
+    overwrite false
+}
+
+task downloadAndUnzipSpotbugs(dependsOn: downlodSpotbugs, type: Copy) {
+    from zipTree("$projectDir/.lift/lift/spotbugs-${spotbugsVersion}.zip")
+    into "$projectDir/.lift/lift"
+
+    doLast {
+        file("$projectDir/.lift/lift/spotbugs-${spotbugsVersion}").renameTo(file("$projectDir/.lift/lift/spotbugs"))
+        file("$projectDir/.lift/lift/spotbugs-${spotbugsVersion}").delete()
+    }
+}
+
+task downloadAndUnzipPMD(dependsOn: downlodPMD, type: Copy) {
+    from zipTree("$projectDir/.lift/lift/pmd-${pmdVersion}.zip")
+    into "$projectDir/.lift/lift"
+
+    doLast {
+        file("$projectDir/.lift/lift/pmd-bin-${pmdVersion}").renameTo(file("$projectDir/.lift/lift/pmd"))
+        file("$projectDir/.lift/lift/pmd-${pmdVersion}").delete()
+    }
+}
+
+tasks.register("hello") {
+    doLast {
+        println "$testVariable"
+    }
+}
+
+for (assignment in assignments) {
+
+    tasks.create(
+            name: "${assignment.name}Tests",
+            type: Test,
+            dependsOn: testClasses
+    ) {
+        description "This task will execute the tests for the assignment (if any)."
+
+        useJUnitPlatform {
+            failFast = true
+
+            filter {
+                includeTestsMatching "edu.princeton.cs.algorithms.${assignment.name}.*"
+            }
+        }
+
+    }
+
+    tasks.create(
+            name: "${assignment.name}Spotbugs",
+            type: Exec,
+            dependsOn: ["${assignment.name}Tests", downloadAndUnzipSpotbugs]
+    ) {
+        description "This task will execute Spotbugs for the class files for the assignment."
+
+        workingDir "$buildDir/classes/java/main/edu/princeton/cs/algorithms/${assignment.name}"
+        commandLine "$projectDir/.lift/bin/spotbugs"
+        args = ["-coursera"] + assignment.sources.collect { file -> file.replace(".java", ".class") }
+    }
+
+    tasks.create(
+            name: "${assignment.name}CodeAnalysisPrepare",
+            type: Copy,
+            dependsOn: "${assignment.name}Spotbugs"
+    ) {
+        description "This task will copy the java files for the assignment to a folder in the build directory and " +
+                "will remove the package instruction from the files."
+
+        from "$projectDir/src/main/java/edu/princeton/cs/algorithms/${assignment.name}"
+        into "$buildDir/coursera/${assignment.name}"
+        filter { String line -> line.startsWith('package') ? '' : line }
+        include assignment.sources
+    }
+
+    tasks.create(
+            name: "${assignment.name}CheckStyle",
+            type: Exec,
+            dependsOn: [downlodCheckStyle, "${assignment.name}CodeAnalysisPrepare"]
+    ) {
+        description "This task will execute CheckStyle for the java files. It will use the Princeton Lift CLI " +
+                "(https://lift.cs.princeton.edu/java/linux/) and the respectives configurations for the Coursera course."
+
+        workingDir "$buildDir/coursera/${assignment.name}"
+        commandLine "$projectDir/.lift/bin/checkstyle"
+        args = ["-coursera"] + assignment.sources
+    }
+
+    tasks.create(
+            name: "${assignment.name}PMD",
+            type: Exec,
+            dependsOn: [downloadAndUnzipPMD, "${assignment.name}CodeAnalysisPrepare"]
+    ) {
+        description "This task will execute PMD for the java files. It will use the Princeton Lift CLI " +
+                "(https://lift.cs.princeton.edu/java/linux/) and the respectives configurations for the Coursera course."
+
+        workingDir "$buildDir/coursera/${assignment.name}"
+        commandLine "$projectDir/.lift/bin/pmd"
+        args = ["-coursera"] + assignment.sources
+    }
+
+    tasks.create(
+            name: "${assignment.name}",
+            type: Zip,
+            dependsOn: ["${assignment.name}CheckStyle", "${assignment.name}PMD"]
+    ) {
+        description "This task will create a zip file will the files required for the Coursera assigment. It will " +
+                "execute the tests and the static code analysis."
+
+        group = "coursera"
+        from "$buildDir/coursera/${assignment.name}"
+        archiveName "${assignment.name}.zip"
+    }
+}

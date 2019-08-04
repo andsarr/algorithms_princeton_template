@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ruleset name="Princeton COS 226 / Coursera ruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>This ruleset is used in Princeton COS 226 and Coursera</description>
+
+    <!-- some files and directory to ignore -->
+    <exclude-pattern>(.*/)?\.workspace/.*</exclude-pattern>
+    <exclude-pattern>(.*/)?\.output/.*</exclude-pattern>
+    <exclude-pattern>(.*/)?old/.*</exclude-pattern>
+    <exclude-pattern>(.*/)?save/.*</exclude-pattern>
+    <exclude-pattern>(.*/)?(PatriciaST|PatriciaSET|SegmentTree|FenwickTree).java</exclude-pattern>
+    <exclude-pattern>(.*/)?(IndexFibonacci|IndexBinomial|IndexMultiway|Multiway|Binomial|Fibonacci)MinPQ.java</exclude-pattern>
+    <exclude-pattern>(.*/)?Eps(Document|Graphics2D).java</exclude-pattern>
+
+
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                documentation.xml
+       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+    <rule ref="category/java/documentation.xml">
+        <exclude name="CommentSize"/>
+        <exclude name="CommentRequired"/>     <!-- requires Javadoc comments for methods; defer to Checkstyle -->
+        <exclude name="UncommentedEmptyConstructor"/>
+    </rule>
+
+    <rule ref="category/java/documentation.xml/UncommentedEmptyMethodBody"
+          message="The method body is empty. If this is your intent, document it with a comment."/>
+
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                codestyle.xml
+       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="AvoidFinalLocalVariable"/>
+        <exclude name="AvoidPrefixingMethodParameters"/>
+        <exclude name="ClassNamingConventions"/>
+        <exclude name="CommentDefaultAccessModifier"/>
+        <exclude name="ConfusingTernary"/>                <!-- too many false positives -->
+        <exclude name="ControlStatementBraces"/>
+        <exclude name="DefaultPackage"/>                 <!-- false negatives in private nested classes -->
+        <exclude name="DontImportJavaLang"/>             <!-- defer to Checkstyle -->
+        <exclude name="DuplicateImports"/>               <!-- defer to Checkstyle -->
+        <exclude name="GenericsNaming"/>
+        <exclude name="LocalVariableCouldBeFinal"/>
+        <exclude name="MethodArgumentCouldBeFinal"/>
+        <exclude name="MethodNamingConventions"/>
+        <exclude name="NoPackage"/>
+        <exclude name="OnlyOneReturn"/>
+        <exclude name="PrematureDeclaration"/>
+        <exclude name="ShortClassName"/>
+        <exclude name="ShortMethodName"/>
+        <exclude name="ShortVariable"/>
+        <exclude name="SuspiciousConstantFieldName"/>    <!-- defer to Checkstyle -->
+        <exclude name="UnnecessaryConstructor"/>
+        <exclude name="UnnecessaryLocalBeforeReturn"/>
+        <exclude name="UnnecessaryModifier"/>
+        <exclude name="UnnecessaryReturn"/>
+        <exclude name="UselessParentheses"/>             <!-- defer to Checkstyle if we want to flag    -->
+        <exclude name="VariableNamingConventions"/>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/FieldDeclarationsShouldBeAtStartOfClass"
+          message="Instance (and static) variables should be declared at the top of the class, before any method declarations, constructors, or nested classes."/>
+
+    <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName"
+          message="Unnecessary use of fully qualified name ''{0}'' due to existing {2}import ''{1}''."/>
+
+    <!-- Avoid excessively long variable names -->
+    <rule ref="category/java/codestyle.xml/LongVariable">
+        <properties>
+            <property name="minimum" value="40"/>
+        </properties>
+    </rule>
+
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                bestpractices.xml
+       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="AccessorClassGeneration"/>
+        <exclude name="AccessorMethodGeneration"/>
+        <exclude name="AvoidReassigningParameters"/>      <!-- defer to Checkstyle -->
+        <exclude name="ForLoopCanBeForeach"/>
+        <exclude name="GuardLogStatement"/>               <!-- false positives with 'logarithm' -->
+        <exclude name="LooseCoupling"/>
+        <exclude name="JUnit4TestShouldUseTestAnnotation"/>
+        <exclude name="OneDeclarationPerLine"/>
+        <exclude name="PositionLiteralsFirstInComparisons"/>
+        <exclude name="PositionLiteralsFirstInCaseInsensitiveComparisons"/>
+        <exclude name="SystemPrintln"/>
+        <exclude name="SwitchStmtsShouldHaveDefault"/>    <!-- defer to Checkstyle, if desired -->
+        <exclude name="UnusedImports"/>                   <!-- defer to Checkstyle -->
+        <exclude name="UseVarargs"/>
+    </rule>
+
+    <rule ref="category/java/bestpractices.xml/MethodReturnsInternalArray"
+          message="Returning ''{0}'' may expose an internal array. If so, return a defensive copy."/>
+
+    <rule ref="category/java/bestpractices.xml/UseCollectionIsEmpty"
+          message="Use the ''isEmpty()'' method instead of comparing ''size()'' to ''0''."/>
+
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateField"
+          message="Avoid unused private instance (or static) variables, such as ''{0}''."/>
+
+    <rule ref="category/java/bestpractices.xml/UnusedFormalParameter"
+          message="Avoid unused parameter variables, such as ''{1}''."/>
+
+    <rule ref="category/java/bestpractices.xml/UnusedLocalVariable"
+          message="Avoid unused local variables, such as ''{0}''."/>
+
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod"
+          message="Avoid unused private methods, such as ''{0}''."/>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                design.xml
+       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+    <rule ref="category/java/design.xml">
+        <exclude name="AvoidCatchingGenericException"/>     <!-- defer to Checkstyle IllegalCatch        -->
+        <exclude name="AvoidThrowingNullPointerException"/> <!-- defer to Checkstyle IllegalThrow        -->
+        <exclude name="AvoidThrowingRawExceptionTypes"/>    <!-- defer to Checkstyle IllegalThrow        -->
+        <exclude name="CyclomaticComplexity"/>
+        <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
+        <exclude name="CollapsibleIfStatements"/>
+        <exclude name="DataClass"/>                         <!-- false positive on some PercolationStats -->
+        <exclude name="ExcessiveClassLength"/>              <!-- defer to Checkstyle -->
+        <exclude name="ExcessiveImports"/>
+        <exclude name="ExcessiveMethodLength"/>             <!-- defer to Checkstyle -->
+        <exclude name="GodClass"/>
+        <exclude name="ImmutableField"/>                    <!-- flags mutable types too, e.g., int[] x  -->
+        <exclude name="LawOfDemeter"/>
+        <exclude name="LogicInversion"/>
+        <exclude name="LoosePackageCoupling"/>
+        <exclude name="NcssCount"/>
+        <exclude name="NPathComplexity"/>
+        <exclude name="SimplifyBooleanExpressions"/>        <!-- defer to Checkstyle      -->
+        <exclude name="SimplifyBooleanReturns"/>            <!-- too many false positives -->
+        <exclude name="TooManyMethods"/>                    <!-- defer to Checkstyle      -->
+        <exclude name="UseUtilityClass"/>
+    </rule>
+
+    <rule ref="category/java/design.xml/ImmutableField"
+          message="The private instance (or static) variable ''{0}'' can be made ''final''; it is initialized only in the declaration or constructor."/>
+
+    <rule ref="category/java/design.xml/SingularField"
+          message="Can you replace the instance (or static) variable ''{0}'' with a local variable?"/>
+
+    <rule ref="category/java/design.xml/FinalFieldCouldBeStatic"
+          message="This instance variable should be turned into a class constant by adding the ''static'' modifier."/>
+
+    <rule ref="category/java/design.xml/AvoidDeeplyNestedIfStmts"
+          message="Avoid quadruple nested ''if'' statements; they are hard to read and error-prone to maintain.">
+        <properties>
+          <property name="problemDepth"
+                    value="4"/>
+        </properties>
+    </rule>
+
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                performance.xml
+       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+    <rule ref="category/java/performance.xml">
+        <exclude name="AddEmptyString"/>
+        <exclude name="AppendCharacterWithChar"/>
+        <exclude name="AvoidArrayLoops"/>
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+        <exclude name="AvoidUsingShortType"/>                <!-- defer to Checkstyle                  -->
+        <exclude name="ConsecutiveAppendsShouldReuse"/>
+        <exclude name="ConsecutiveLiteralAppends"/>
+        <exclude name="InefficientEmptyStringCheck"/>
+        <exclude name="InefficientStringBuffering"/>
+        <exclude name="InsufficientStringBufferDeclaration"/>
+        <exclude name="OptimizableToArrayCall"/>
+        <exclude name="RedundantFieldInitializer"/>
+        <exclude name="StringInstantiation"/>                <!-- defer to Findbugs -->
+        <exclude name="StringToString"/>                     <!-- defer to Findbugs -->
+        <exclude name="UseArrayListInsteadOfVector"/>        <!-- for our Vector data type              -->
+        <exclude name="UseStringBufferForStringAppends"/>    <!-- this flags string appends not in loop -->
+    </rule>
+
+    <rule ref="category/java/performance.xml/TooFewBranchesForASwitchStatement"
+          message="The ''switch'' statement has fewer than two branches; use an ''if'' statement instead.">
+        <properties>
+            <property name="minimumNumberCaseForASwitch" value="2"/>
+        </properties>
+    </rule>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                multithreading.xml
+       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+    <rule ref="category/java/multithreading.xml">
+        <exclude name="UseConcurrentHashMap"/>           <!-- no concurrent programs in this course     -->
+    </rule>
+
+    <rule ref="category/java/multithreading.xml/DoNotUseThreads"
+          message="Do not use threads in this course."/>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                errorprone.xml
+       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="AssignmentInOperand"/>                 <!-- do we want to exclude for COS 226?        -->
+        <exclude name="AvoidLiteralsInIfCondition"/>
+        <exclude name="AvoidDuplicateLiterals"/>
+        <exclude name="AvoidCatchingNPE"/>                    <!-- defer to Checkstyle AvoidCatchingGenericException  -->
+        <exclude name="AvoidCatchingThrowable"/>              <!-- defer to Checkstyle IllegalCatch                   -->
+        <exclude name="AvoidFieldNameMatchingMethodName"/>
+        <exclude name="AvoidFieldNameMatchingTypeName"/>
+        <exclude name="BeanMembersShouldSerialize"/>
+        <exclude name="ConstructorCallsOverridableMethod"/>
+        <exclude name="CompareObjectsWithEquals"/>
+        <exclude name="NullAssignment"/>
+        <exclude name="UseLocaleWithCaseConversions"/>
+        <exclude name="DataflowAnomalyAnalysis"/>
+        <exclude name="MethodWithSameNameAsEnclosingClass"/>  <!-- defer to Checkstyle              -->
+        <exclude name="OverrideBothEqualsAndHashcode"/>       <!-- defer to Checkstyle and Findbugs -->
+        <exclude name="AvoidUsingOctalValues"/>               <!-- defer to Checkstyle              -->
+    </rule>
+
+    <rule ref="category/java/errorprone.xml/JumbledIncrementer"
+          message="Are you using the correct loop index variable? You are modifying an outer ''for'' loop index variable in an inner ''for'' loop update expression."/>
+
+    <rule ref="category/java/errorprone.xml/AvoidBranchingStatementAsLastInLoop"
+          message="Avoid using a ''continue'', ''break'', or ''return'' statement as the last statement in a loop.">
+        <properties>
+            <property name="violationSuppressXPath"
+                     value="//ClassOrInterfaceDeclaration[(@Image='SAP') or (@Image='ShortestCommonAncestor')]"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/errorprone.xml/UnconditionalIfStatement"
+          message="Do not use an ''if'' statement whose boolean condition is always true or always false."/>
+
+    <rule ref="category/java/errorprone.xml/DoNotCallSystemExit"
+          message="Do not call ''System.exit()'' in this course."/>
+
+    <rule ref="category/java/errorprone.xml/AssignmentInOperand"
+          message="Avoid using assignment statements in expressions; this can make code harder to read."/>
+
+    <rule ref="category/java/errorprone.xml/EmptyIfStmt"
+          message="The ''if'' or ''else'' clause appears to serve no purpose because it's body is empty."/>
+
+    <rule ref="category/java/errorprone.xml/EmptyStatementNotInLoop"
+          message="There appears to be a spurious semicolon."/>
+
+    <rule ref="category/java/errorprone.xml/EmptyCatchBlock">
+        <properties>
+            <property name="allowCommentedBlocks" value="true"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/errorprone.xml/EqualsNull"
+          message="To check whether an object reference is null, use code like ''x == null'' instead of ''x.equals(null)''."/>
+
+
+
+  <!-- ======================================================================================================
+                CUSTOM XPATH RULES (wayne)
+       ====================================================================================================== -->
+
+    <rule name="AtMostOneArrayInstanceVariable"
+        message="You should not need to define more than one array instance variable in this program."
+        language="java"
+        class="net.sourceforge.pmd.lang.rule.XPathRule">
+        <description>
+            Special check for Board.java to see if student defines more than one array instance variable.
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="violationSuppressXPath"
+                     value="//ClassOrInterfaceDeclaration[not(@Image='Board')]"/>
+            <property name="xpath">
+                <value>
+                    <![CDATA[
+                        //ClassOrInterfaceDeclaration[@Nested='false'][count(//FieldDeclaration[@Array='true']) > 1]
+                    ]]>
+                </value>
+            </property>
+        </properties>
+    </rule>
+
+    <rule name="ArrayEqualsWithMultidimensionalArray"
+        message="Do not call ''Arrays.equal()'' with a multi-dimensional array. Instead, call ''Arrays.deepEquals()''."
+        language="java"
+        class="net.sourceforge.pmd.lang.rule.XPathRule">
+        <description>
+            Calling Arrays.equals() with a two-dimensional array is likely a bug.
+            Using Arrays.deepEquals() was probably intended.
+            This test is fragile - it tests only that there is a 2D instance variable and it calls Arrays.equals().
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="violationSuppressXPath"
+                     value="//ClassOrInterfaceDeclaration[not(@Image='Board')]"/>
+            <property name="xpath">
+                <value>
+                    <![CDATA[
+                        //ClassOrInterfaceDeclaration[@Nested='false']
+                        [count(//FieldDeclaration[@ArrayDepth>=2]) >= 1]
+                        //PrimaryExpression/PrimaryPrefix/Name[@Image='Arrays.equals']
+                    ]]>
+                </value>
+            </property>
+        </properties>
+    </rule>
+
+    <rule name="OnlyPrivateInstanceVariables"
+        message="All instance (and static) variables must be ''private''."
+        language="java"
+        class="net.sourceforge.pmd.lang.rule.XPathRule">
+        <description>
+            Prohibit non-private instance (or static) variables.
+            The one exception is non-private fields defined in private nested classes,
+            for which the access modifier is not relevant.
+        </description>
+        <priority>1</priority>
+        <properties>
+            <property name="xpath">
+                <value>
+                    <![CDATA[
+                        //ClassOrInterfaceDeclaration[@Private='false']
+                        /ClassOrInterfaceBody
+                        /ClassOrInterfaceBodyDeclaration
+                        /FieldDeclaration[@Private='false']
+                    ]]>
+                </value>
+            </property>
+        </properties>
+    </rule>
+
+
+
+</ruleset>
