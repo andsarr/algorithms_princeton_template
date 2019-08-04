@@ -42,12 +42,6 @@ task downloadAndUnzipPMD(dependsOn: downlodPMD, type: Copy) {
     }
 }
 
-tasks.register("hello") {
-    doLast {
-        println "$testVariable"
-    }
-}
-
 for (assignment in assignments) {
 
     tasks.create(
