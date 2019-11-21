@@ -28,7 +28,7 @@ task downloadAndUnzipSpotbugs(dependsOn: downlodSpotbugs, type: Copy) {
 
     doLast {
         file("$projectDir/.lift/lift/spotbugs-${spotbugsVersion}").renameTo(file("$projectDir/.lift/lift/spotbugs"))
-        file("$projectDir/.lift/lift/spotbugs-${spotbugsVersion}").delete()
+        project.delete("$projectDir/.lift/lift/spotbugs-${spotbugsVersion}")
     }
 }
 
@@ -38,7 +38,7 @@ task downloadAndUnzipPMD(dependsOn: downlodPMD, type: Copy) {
 
     doLast {
         file("$projectDir/.lift/lift/pmd-bin-${pmdVersion}").renameTo(file("$projectDir/.lift/lift/pmd"))
-        file("$projectDir/.lift/lift/pmd-${pmdVersion}").delete()
+        project.delete("$projectDir/.lift/lift/pmd-${pmdVersion}")
     }
 }
 
@@ -68,9 +68,27 @@ for (assignment in assignments) {
     ) {
         description "This task will execute Spotbugs for the class files for the assignment."
 
-        workingDir "$buildDir/classes/java/main/edu/princeton/cs/algorithms/${assignment.name}"
+        /*   We need to copy the content of the assigment variable to local variables because the Action contained inside
+         * doFirst will contain the reference to the last assigment in the assigment list.
+         *   In this way, we make the calculation of the source dynamic, because the Action inside doFirst is executed
+         * when the action is executed. The previous code is only executed in configuration time, that's why is important
+         * to copy the references in this phase.
+        */
+        def assigmentName = assignment.name
+        def assigmentSources = assignment.sources + assignment.aditionalSources
+
+        workingDir "$buildDir/classes/java/main/edu/princeton/cs/algorithms/${assigmentName}"
         commandLine "$projectDir/.lift/bin/spotbugs"
-        args = ["-coursera"] + assignment.sources.collect { file -> file.replace(".java", ".class") }
+
+        doFirst {
+            args = ["-coursera"] + fileTree("$buildDir/classes/java/main/edu/princeton/cs/algorithms/${assigmentName}").filter {
+                file ->
+                    def pattern = ~/(\$.*)*\.class$/
+                    def fileName = file.getName()
+                    def name = fileName.replaceAll(pattern, ".java")
+                    assigmentSources.contains(name)
+            }
+        }
     }
 
     tasks.create(
