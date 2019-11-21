@@ -13,7 +13,7 @@ The details of the courses can fe found in:
 The src folder contains the solutions for each week in the following structure:
 
 + Algorithms, Part I
-  + `edu.princeton.cs.algorithms.percolation`: Solutions for the [Week 1](https://www.coursera.org/learn/algorithms-part1/home/week/1). The programming assignment specification could be found here: [Percolation](https://coursera.cs.princeton.edu/algs4/assignments/percolation/specification.php).
+  + [edu.princeton.cs.algorithms.percolation](src/main/java/edu/princeton/cs/algorithms/percolation): Solutions for the [Week 1](https://www.coursera.org/learn/algorithms-part1/home/week/1). The programming assignment specification could be found here: [Percolation](https://coursera.cs.princeton.edu/algs4/assignments/percolation/specification.php).
   + `edu.princeton.cs.algorithms.queues`: Solutions for the [Week 2](https://www.coursera.org/learn/algorithms-part1/home/week/2). The programming assignment specification could be found here: [Deques and Randomized Queues](https://coursera.cs.princeton.edu/algs4/assignments/queues/specification.php). 
   + `edu.princeton.cs.algorithms.collinearpoints`: Solutions for the [Week 3](https://www.coursera.org/learn/algorithms-part1/home/week/3). The programming assignment specification could be found here: [Collinear Points](https://coursera.cs.princeton.edu/algs4/assignments/collinear/specification.php).
   + `edu.princeton.cs.algorithms.sliderpuzzle`: Solutions for the [Week 4](https://www.coursera.org/learn/algorithms-part1/home/week/4). The programming assignment specification could be found here: [8 Puzzle](https://coursera.cs.princeton.edu/algs4/assignments/8puzzle/specification.php).
