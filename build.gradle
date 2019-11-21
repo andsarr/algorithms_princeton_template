@@ -15,7 +15,16 @@ buildscript {
                 ],
                 [
                         name   : "collinearpoints",
-                        sources: ["BruteCollinearPoints.java", "FastCollinearPoints.java", "Point.java"]
+                        sources: ["BruteCollinearPoints.java", "FastCollinearPoints.java", "Point.java"],
+                        aditionalSources: ["LineSegment.java"]
+                ],
+                [
+                        name: "sliderpuzzle",
+                        sources: ["Board.java",  "Solver.java"]
+                ],
+                [
+                        name: "kdtrees",
+                        sources: ["PointSET.java",  "KdTree.java"]
                 ]
         ]
     }
@@ -26,11 +35,11 @@ plugins {
     id "de.undercouch.download" version "4.0.0"
 }
 
-apply from: "$projectDir/gradle/coursera.gradle"
-
 repositories {
     jcenter()
 }
+
+apply from: "$projectDir/gradle/coursera.gradle"
 
 defaultTasks 'clean', 'check'
 
@@ -41,6 +50,9 @@ dependencies {
     // Use JUnit test framework
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
     testRuntimeOnly    'org.junit.jupiter:junit-jupiter-engine:5.5.0'
+
+    // Guava
+    testImplementation 'com.google.guava:guava:28.0-jre'
 }
 
 test {
