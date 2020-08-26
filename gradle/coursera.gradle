@@ -9,7 +9,7 @@ task downlodCheckStyle(type: Download) {
 task downlodSpotbugs(type: Download) {
     description "This task will download the $spotbugsVersion version of Spotbugs."
 
-    src "http://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/$spotbugsVersion/spotbugs-${spotbugsVersion}.zip"
+    src "https://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/$spotbugsVersion/spotbugs-${spotbugsVersion}.zip"
     dest "$projectDir/.lift/lift/spotbugs-${spotbugsVersion}.zip"
     overwrite false
 }
