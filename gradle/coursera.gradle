@@ -78,10 +78,10 @@ for (assignment in assignments) {
         def assigmentSources = assignment.sources + assignment.aditionalSources
 
         workingDir "$buildDir/classes/java/main/edu/princeton/cs/algorithms/${assigmentName}"
-        commandLine "$projectDir/.lift/bin/spotbugs"
+        commandLine "bash"
 
         doFirst {
-            args = ["-coursera"] + fileTree("$buildDir/classes/java/main/edu/princeton/cs/algorithms/${assigmentName}").filter {
+            args = ["$projectDir/.lift/bin/spotbugs", "-coursera"] + fileTree("$buildDir/classes/java/main/edu/princeton/cs/algorithms/${assigmentName}").filter {
                 file ->
                     def pattern = ~/(\$.*)*\.class$/
                     def fileName = file.getName()
@@ -114,8 +114,8 @@ for (assignment in assignments) {
                 "(https://lift.cs.princeton.edu/java/linux/) and the respectives configurations for the Coursera course."
 
         workingDir "$buildDir/coursera/${assignment.name}"
-        commandLine "$projectDir/.lift/bin/checkstyle"
-        args = ["-coursera"] + assignment.sources
+        commandLine "bash"
+        args = ["$projectDir/.lift/bin/checkstyle", "-coursera"] + assignment.sources
     }
 
     tasks.create(
@@ -127,8 +127,8 @@ for (assignment in assignments) {
                 "(https://lift.cs.princeton.edu/java/linux/) and the respectives configurations for the Coursera course."
 
         workingDir "$buildDir/coursera/${assignment.name}"
-        commandLine "$projectDir/.lift/bin/pmd"
-        args = ["-coursera", "$buildDir/coursera/${assignment.name}"]
+        commandLine "bash"
+        args = ["$projectDir/.lift/bin/pmd", "-coursera", "$buildDir/coursera/${assignment.name}"]
     }
 
     tasks.create(
