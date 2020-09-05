@@ -25,6 +25,10 @@ buildscript {
                 [
                         name: "kdtrees",
                         sources: ["PointSET.java",  "KdTree.java"]
+                ],
+                [
+                        name: "wordnet",
+                        sources: ["WordNet.java",  "SAP.java", "Outcast.java"]
                 ]
         ]
     }
