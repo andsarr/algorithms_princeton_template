@@ -19,6 +19,9 @@ The src folder contains the solutions for each week in the following structure:
   + [edu.princeton.cs.algorithms.sliderpuzzle](src/main/java/edu/princeton/cs/algorithms/sliderpuzzle): Solutions for the [Week 4](https://www.coursera.org/learn/algorithms-part1/home/week/4). The programming assignment specification could be found here: [8 Puzzle](https://coursera.cs.princeton.edu/algs4/assignments/8puzzle/specification.php).
   + [edu.princeton.cs.algorithms.kdtrees](src/main/java/edu/princeton/cs/algorithms/kdtrees): Solutions for the [Week 5](https://www.coursera.org/learn/algorithms-part1/home/week/5). The programming assignment specification could be found here: [Kd-Trees](https://coursera.cs.princeton.edu/algs4/assignments/kdtree/specification.php). 
 
++ Algorithms, Part II
+    + [edu.princeton.cs.algorithms.wordnet](src/main/java/edu/princeton/cs/algorithms/wordnet): Solutions for the [Week 1](https://www.coursera.org/learn/algorithms-part2/home/week/1). The programming assignment specification could be found here: [WordNet](https://coursera.cs.princeton.edu/algs4/assignments/wordnet/specification.php). 
+
 
 #### Note
   The Gradle project creates for each assignment a task that will remove for each file, the package information and will put then
