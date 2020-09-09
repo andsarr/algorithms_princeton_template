@@ -29,6 +29,10 @@ buildscript {
                 [
                         name: "wordnet",
                         sources: ["WordNet.java",  "SAP.java", "Outcast.java"]
+                ],
+                [
+                        name: "seam",
+                        sources: ["SeamCarver.java"]
                 ]
         ]
     }
