@@ -4,6 +4,12 @@ import edu.princeton.cs.algs4.Picture;
 
 public class SeamCarver {
 
+    /**
+     *  Creates a seam carver object based on the given picture.
+     *  The input picture is not mutated by this object.
+     *
+     * @throws IllegalArgumentException if picture is null.
+     */
     public SeamCarver(Picture picture) {
 
     }
@@ -31,6 +37,8 @@ public class SeamCarver {
 
     /**
      * Returns the energy of pixel at column x and row y.
+     *
+     * @throws IllegalArgumentException if coordinates are outside current picture boundaries.
      */
     public double energy(int x, int y) {
         return 0;
@@ -52,12 +60,24 @@ public class SeamCarver {
 
     /**
      * Removes horizontal seam from current picture.
+     *
+     * @throws IllegalArgumentException in any of the following situations:
+     *  - the height of the picture is less than or equal to 1
+     *  - the input array is null or has the wrong length
+     *  - the input array is not a valid seam, i.e. either an entry is outside its prescribed range
+     *    or two adjacent entries differ by more than 1.
      */
     public void removeHorizontalSeam(int[] seam) {
     }
 
     /**
-     * Removes vertical seam from current picture
+     * Removes vertical seam from current picture.
+     *
+     * @throws IllegalArgumentException in any of the following situations:
+     *  - the width of the picture is less than or equal to 1
+     *  - the input array is null or has the wrong length
+     *  - the input array is not a valid seam, i.e. either an entry is outside its prescribed range
+     *    or two adjacent entries differ by more than 1.
      */
     public void removeVerticalSeam(int[] seam) {
     }
