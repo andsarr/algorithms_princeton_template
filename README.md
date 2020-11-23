@@ -21,6 +21,7 @@ The src folder contains the solutions for each week in the following structure:
 
 + Algorithms, Part II
     + [edu.princeton.cs.algorithms.wordnet](src/main/java/edu/princeton/cs/algorithms/wordnet): Solutions for the [Week 1](https://www.coursera.org/learn/algorithms-part2/home/week/1). The programming assignment specification could be found here: [WordNet](https://coursera.cs.princeton.edu/algs4/assignments/wordnet/specification.php). 
+    + [edu.princeton.cs.algorithms.seam](src/main/java/edu/princeton/cs/algorithms/seam): Solutions for the [Week 2](https://www.coursera.org/learn/algorithms-part2/home/week/2). The programming assignment specification could be found here: [Seam Carving](https://coursera.cs.princeton.edu/algs4/assignments/seam/specification.php). 
 
 
 #### Note
